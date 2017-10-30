@@ -7,17 +7,14 @@ import ru.stqa.pft.addressbook.model.GroupData;
 public class GroupHelper extends HelperBase {
 
   public GroupHelper(FirefoxDriver wd) {
-
     super(wd);
   }
 
   public void returnToGroupPage() {
-
     click(By.linkText("group page"));
   }
 
   public void submitGroupCreation() {
-
     click(By.name("submit"));
   }
 
@@ -36,8 +33,8 @@ public class GroupHelper extends HelperBase {
   }
 
   public void selectGroup() {
-      if (!wd.findElement(By.xpath("//div[@id='content']/form/span[10]/input")).isSelected()) {
-        click(By.xpath("//div[@id='content']/form/span[10]/input"));
-      }
+    if (!wd.findElement(By.xpath("//div[@id='content']/form/span[10]/input")).isSelected()) {
+      click(By.xpath("//div[@id='content']/form/span[10]/input"));
+    }
   }
 }
