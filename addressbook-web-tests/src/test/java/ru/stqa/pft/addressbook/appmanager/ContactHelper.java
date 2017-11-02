@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import static org.openqa.selenium.By.id;
+
 public class ContactHelper extends HelperBase {
 
   public ContactHelper(FirefoxDriver wd) {
@@ -28,4 +30,13 @@ public class ContactHelper extends HelperBase {
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
+
+   public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedContacts() {
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  }
+
 }
