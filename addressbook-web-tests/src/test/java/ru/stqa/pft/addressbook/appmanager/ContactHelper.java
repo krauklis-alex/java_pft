@@ -49,7 +49,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void initContactModification() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img"));
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
   public void submitContactModification() {
@@ -62,7 +62,7 @@ public class ContactHelper extends HelperBase {
 
   public void createContact(ContactData contact, boolean creation) {
    initContactCreation();
-   fillContactForm(new ContactData("first-name-test", "last-name-test", "2222222", "test@test.te", "NewYork Central park", "1234567890", "homepage.com", "note text", "test1"), true);
+   fillContactForm(contact, creation);
    submitContactCreation();
   }
 }
