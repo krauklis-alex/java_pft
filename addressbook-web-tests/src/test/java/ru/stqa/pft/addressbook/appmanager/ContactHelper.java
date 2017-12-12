@@ -42,8 +42,8 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-   public void selectContact() {
-    click(By.name("selected[]"));
+   public void selectContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedContacts() {
@@ -72,13 +72,23 @@ public class ContactHelper extends HelperBase {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements) {
-      String name = element.getText();
+//     List<WebElement> cells = element.findElements(By.tagName("td"));
+//     for (WebElement cell  : cells) {
+//       String firstname = cell.findElement(By.cssSelector(".nth-of-type(1)")).getText();
+//       String lastname = cell.findElement(By.cssSelector(".nth-of-type(2)")).getText();
+//     }
+      String firstname = element.findElement(By.xpath("//tr[@name=\'entry\']//td[3]")).getText();
+      String lastname = element.findElement(By.xpath("//tr[@name=\'entry\']//td[2]")).getText();
       //int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      ContactData contact = new ContactData (name, null, null, null,
+      ContactData contact = new ContactData (firstname, lastname, null, null,
               null, null, null, null, null);
       contacts.add(contact);
     }
     return contacts;
   }
- }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+}
 
