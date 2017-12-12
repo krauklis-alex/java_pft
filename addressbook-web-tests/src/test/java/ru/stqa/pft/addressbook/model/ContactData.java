@@ -29,6 +29,11 @@ public class ContactData {
   }
 
 
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
   public ContactData(String firstname, String lastname, String homePhone,
                      String email, String address, String mobilePhone,
                      String homepage, String note, String group) {
@@ -85,14 +90,6 @@ public class ContactData {
   }
 
   @Override
-  public String toString() {
-    return "ContactData{" +
-            "firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
-            '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -108,5 +105,19 @@ public class ContactData {
     int result = firstname != null ? firstname.hashCode() : 0;
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", email='" + email + '\'' +
+            ", address='" + address + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", homepage='" + homepage + '\'' +
+            ", note='" + note + '\'' +
+            '}';
   }
 }
