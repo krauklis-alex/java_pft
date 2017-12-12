@@ -12,27 +12,27 @@ public class ContactData {
   private int id;
   private String group;
 
-//  public ContactData(int id, String firstname, String lastname, String homePhone,
-//                     String email, String address, String mobilePhone,
-//                     String homepage, String note, String group) {
-//    this.id = id;
-//
-//    this.firstname = firstname;
-//    this.lastname = lastname;
-//    this.homePhone = homePhone;
-//    this.email = email;
-//    this.address = address;
-//    this.mobilePhone = mobilePhone;
-//    this.homepage = homepage;
-//    this.note = note;
-//    this.group = group;
-//  }
+  public ContactData(int id, String firstname, String lastname, String homePhone,
+                     String email, String address, String mobilePhone,
+                     String homepage, String note, String group) {
+    this.id = id;
+
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.homePhone = homePhone;
+    this.email = email;
+    this.address = address;
+    this.mobilePhone = mobilePhone;
+    this.homepage = homepage;
+    this.note = note;
+    this.group = group;
+  }
 
 
   public ContactData(String firstname, String lastname, String homePhone,
                      String email, String address, String mobilePhone,
                      String homepage, String note, String group) {
-//    this.id = Integer.MAX_VALUE;
+    this.id = Integer.MAX_VALUE;
     this.firstname = firstname;
     this.lastname = lastname;
     this.homePhone = homePhone;
