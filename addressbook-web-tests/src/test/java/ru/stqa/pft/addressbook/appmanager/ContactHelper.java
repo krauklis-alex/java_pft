@@ -72,19 +72,22 @@ public class ContactHelper extends HelperBase {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements) {
-//     List<WebElement> cells = element.findElements(By.tagName("td"));
-//     for (WebElement cell  : cells) {
-//       String firstname = cell.findElement(By.cssSelector(".nth-of-type(1)")).getText();
-//       String lastname = cell.findElement(By.cssSelector(".nth-of-type(2)")).getText();
-//     }
-      String firstname = element.findElement(By.xpath("//tr[@name=\'entry\']//td[3]")).getText();
-      String lastname = element.findElement(By.xpath("//tr[@name=\'entry\']//td[2]")).getText();
-      String address = element.findElement(By.xpath("//tr[@name=\'entry\']//td[4]")).getText();
-      String email = element.findElement(By.xpath("//tr[@name=\'entry\']//td[5]")).getText();
-      String homepage = element.findElement(By.xpath("//tr[@name='entry']//td[10]/a/@href")).getText();
-
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      ContactData contact = new ContactData (id, firstname, lastname, null, email,
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+      String firstname = cells.get(3).getText();
+      String lastname = cells.get(2).getText();
+      String address = cells.get(4).getText();
+      String email = cells.get(5).getText();
+      String homepage = element.findElement(By.xpath("//td[10]/a")).getText();
+      String homephone = cells.get(6).getText();
+      int id = Integer.parseInt(element.findElement(By.xpath("//*[@type ='checkbox']")).getAttribute("value"));
+//      String firstname = element.findElement(By.xpath("//td[3]")).getText();
+//      String lastname = element.findElement(By.xpath("//td[2]")).getText();
+//      String address = element.findElement(By.xpath("//td[4]")).getText();
+//      String email = element.findElement(By.xpath("//td[5]")).getText();
+//      String homepage = element.findElement(By.xpath("//td[10]/a")).getText();
+//      String homephone = element.findElement(By.xpath("//td[6]")).getText();
+//      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      ContactData contact = new ContactData (id, firstname, lastname, homephone, email,
               address, null, homepage, null, null);
       contacts.add(contact);
     }
