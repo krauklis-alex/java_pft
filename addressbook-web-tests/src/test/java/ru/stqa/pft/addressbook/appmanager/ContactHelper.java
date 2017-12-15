@@ -79,22 +79,22 @@ public class ContactHelper extends HelperBase {
       String email = cells.get(5).getText();
       String homepage = element.findElement(By.xpath("//td[10]/a")).getText();
       String homephone = cells.get(6).getText();
-//      int id = Integer.parseInt(cells.get(1).getAttribute("value"));
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
-//      String firstname = element.findElement(By.xpath("//td[3]")).getText();
-//      String lastname = element.findElement(By.xpath("//td[2]")).getText();
-//      String address = element.findElement(By.xpath("//td[4]")).getText();
-//      String email = element.findElement(By.xpath("//td[5]")).getText();
-//      String homepage = element.findElement(By.xpath("//td[10]/a")).getText();
-//      String homephone = element.findElement(By.xpath("//td[6]")).getText();
-//      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       ContactData contact = new ContactData (id, firstname, lastname, homephone, email,
               address, null, homepage, null, null);
       contacts.add(contact);
     }
     return contacts;
   }
+
+  //      int id = Integer.parseInt(cells.get(1).getAttribute("value"));//      String firstname = element.findElement(By.xpath("//td[3]")).getText();
+//      String lastname = element.findElement(By.xpath("//td[2]")).getText();
+//      String address = element.findElement(By.xpath("//td[4]")).getText();
+//      String email = element.findElement(By.xpath("//td[5]")).getText();
+//      String homepage = element.findElement(By.xpath("//td[10]/a")).getText();
+//      String homephone = element.findElement(By.xpath("//td[6]")).getText();
+//      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
