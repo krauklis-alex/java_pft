@@ -50,8 +50,9 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
   }
 
-  public void initContactModification() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  public void initContactModification(int id) {
+    click(By.xpath("//table[@id='maintable']/tbody//a[@href=\"edit.php?id=" + id + "\"]"));
+    //click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
   public void submitContactModification() {
@@ -77,12 +78,11 @@ public class ContactHelper extends HelperBase {
       String firstname = cells.get(2).getText(); //2
       String address = cells.get(3).getText();//3
       String email = cells.get(4).getText();//4
-      String homepage = element.findElement(By.xpath("//td[10]/a")).getText();
       String homephone = cells.get(5).getText();//5
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
       ContactData contact = new ContactData (id, firstname, lastname, homephone, email,
-              address, null, homepage, null, null);
+              address, null, null, null, null);
       contacts.add(contact);
     }
     return contacts;
