@@ -96,7 +96,6 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
-    if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
     if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
     if (homePhone != null ? !homePhone.equals(that.homePhone) : that.homePhone != null) return false;
@@ -111,7 +110,6 @@ public class ContactData {
     result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
     result = 31 * result + (email != null ? email.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + id;
     return result;
   }
 
@@ -124,6 +122,7 @@ public class ContactData {
             ", email='" + email + '\'' +
             ", address='" + address + '\'' +
             ", mobilePhone='" + mobilePhone + '\'' +
+
             ", homepage='" + homepage + '\'' +
             ", note='" + note + '\'' +
             ", id=" + id +
