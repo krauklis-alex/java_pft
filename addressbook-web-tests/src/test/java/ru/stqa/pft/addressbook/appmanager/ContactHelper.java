@@ -10,6 +10,8 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.stqa.pft.addressbook.tests.TestBase.app;
+
 
 public class ContactHelper extends HelperBase {
 
@@ -52,7 +54,6 @@ public class ContactHelper extends HelperBase {
 
   public void initContactModification(int id) {
     click(By.xpath("//table[@id='maintable']/tbody//a[@href=\"edit.php?id=" + id + "\"]"));
-    //click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
   public void submitContactModification() {
@@ -63,13 +64,27 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public void createContact(ContactData contact, boolean creation) {
+  public void create(ContactData contact, boolean creation) {
    initContactCreation();
    fillContactForm(contact, creation);
    submitContactCreation();
   }
 
-  public List<ContactData> getContactList() {
+  public void modify(int id, ContactData contact) {
+    initContactModification(id);
+    fillContactForm(contact, false);
+    submitContactModification();
+    app.goTo().returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    deleteSelectedContacts();
+    closeAlertByOK();
+    app.goTo().homePage();
+  }
+
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements) {
@@ -81,9 +96,9 @@ public class ContactHelper extends HelperBase {
       String homephone = cells.get(5).getText();//5
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
-      ContactData contact = new ContactData (id, firstname, lastname, homephone, email,
-              address, null, null, null, null);
-      contacts.add(contact);
+      contacts.add(new ContactData().
+              withId(id).withFirstname(firstname).withLastname(lastname).withHomePhone(homephone).
+              withEmail(email).withAddress(address));
     }
     return contacts;
   }

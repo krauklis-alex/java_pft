@@ -7,7 +7,7 @@ import org.openqa.selenium.remote.BrowserType;
 
 public class TestBase {
 
-  protected static ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  public static ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
 
   @BeforeSuite

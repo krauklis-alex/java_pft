@@ -4,21 +4,19 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void testContactCreation() {
-    List<ContactData> before = app.getContactHelper().getContactList();
-    ContactData contact = new ContactData("first-name-test", "last-name-test",
-            "2222222", "test@test.te", "NewYork Central park", null,
-            "homepage.com", null, "test1");
-    app.getContactHelper().createContact(contact, true);
+    List<ContactData> before = app.contact().list();
+    ContactData contact = new ContactData().
+            withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222").
+            withEmail("test@test.te").withAddress("NewYork Central park").withHomepage("homepage.com").withGroup("test1");
+    app.contact().create(contact, true);
     app.goTo().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
 //    before.add(contact);
@@ -27,8 +25,8 @@ public class ContactCreationTests extends TestBase {
 //    after.sort(byId);
 //    Assert.assertEquals(before, after);
 
-//    contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-//    before.add(contact);
-//    Assert.assertEquals(before, after);
+    contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
+    before.add(contact);
+    Assert.assertEquals(before, after);
   }
 }
