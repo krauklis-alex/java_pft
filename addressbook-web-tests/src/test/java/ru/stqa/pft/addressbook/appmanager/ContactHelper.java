@@ -97,7 +97,10 @@ public class ContactHelper extends HelperBase {
       String firstname = cells.get(2).getText(); //2
       String address = cells.get(3).getText();//3
       String email = cells.get(4).getText();//4
-      String homephone = cells.get(5).getText();//5
+//      String homephone = cells.get(5).getText();//5
+//      String phones = cells.get(5).getText();
+      String[] phone = cells.get(5).getText().split("\n");
+      String homephone = phone[0];
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
       contacts.add(new ContactData().
