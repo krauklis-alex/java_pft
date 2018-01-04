@@ -62,6 +62,29 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
+  public void create(ContactData contact, boolean creation) {
+   initContactCreation();
+   fillContactForm(contact, creation);
+   submitContactCreation();
+   contactCache = null;
+  }
+
+  public void modify(ContactData contact) {
+    initContactModification(contact.getId());
+    fillContactForm(contact, false);
+    submitContactModification();
+    contactCache = null;
+    app.goTo().returnToHomePage();
+  }
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContacts();
+    closeAlertByOK();
+    contactCache = null;
+    app.goTo().homePage();
+  }
+
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
@@ -70,28 +93,14 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public void create(ContactData contact, boolean creation) {
-   initContactCreation();
-   fillContactForm(contact, creation);
-   submitContactCreation();
-  }
-
-  public void modify(ContactData contact) {
-    initContactModification(contact.getId());
-    fillContactForm(contact, false);
-    submitContactModification();
-    app.goTo().returnToHomePage();
-  }
-
-  public void delete(ContactData contact) {
-    selectContactById(contact.getId());
-    deleteSelectedContacts();
-    closeAlertByOK();
-    app.goTo().homePage();
-  }
+  private Contacts contactCache = null;
 
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+
+    contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
@@ -99,16 +108,15 @@ public class ContactHelper extends HelperBase {
       String firstname = cells.get(2).getText();
       String address = cells.get(3).getText();
       String email = cells.get(4).getText();
-//      String homephone = cells.get(5).getText();
       String[] phone = cells.get(5).getText().split("\n");
       String homephone = phone[0];
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
-      contacts.add(new ContactData().
+      contactCache.add(new ContactData().
               withId(id).withFirstname(firstname).withLastname(lastname).withHomePhone(homephone).
               withEmail(email).withAddress(address));
     }
-    return contacts;
+    return contactCache;
   }
 
 
