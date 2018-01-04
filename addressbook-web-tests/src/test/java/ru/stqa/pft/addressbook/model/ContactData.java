@@ -7,10 +7,17 @@ public class ContactData {
   private String email;
   private String address;
   private String mobilePhone;
+  private String workPhone;
   private String homepage;
   private String note;
+  private String allPhones;
+  private String allEmails;
+  private String email_2;
+  private String email_3;
+
   private int id = Integer.MAX_VALUE;
   private String group;
+
 
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
@@ -32,6 +39,16 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withEmail_2(String email_2) {
+    this.email_2 = email_2;
+    return this;
+  }
+
+  public ContactData withEmail_3(String email_3) {
+    this.email_3 = email_3;
+    return this;
+  }
+
   public ContactData withAddress(String address) {
     this.address = address;
     return this;
@@ -39,6 +56,11 @@ public class ContactData {
 
   public ContactData withMobilePhone(String mobilePhone) {
     this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public ContactData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
     return this;
   }
 
@@ -54,6 +76,16 @@ public class ContactData {
 
   public ContactData withGroup(String group) {
     this.group = group;
+    return this;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
 
@@ -82,10 +114,6 @@ public class ContactData {
     return address;
   }
 
-  public String getMobilePhone() {
-    return mobilePhone;
-  }
-
   public String getHomepage() {
     return homepage;
   }
@@ -100,6 +128,28 @@ public class ContactData {
 
   public int getId() {
     return id;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
+  }
+  public String getAllEmails() {
+    return allEmails;
+  }
+
+  public String getEmail_2() {
+    return email_2;
+  }
+
+  public String getEmail_3() {
+    return email_3;
   }
 
 
@@ -145,4 +195,5 @@ public class ContactData {
             ", group='" + group + '\'' +
             '}';
   }
+
 }
