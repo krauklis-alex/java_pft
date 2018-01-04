@@ -76,7 +76,7 @@ public class GroupHelper extends HelperBase {
     return isElementPresent(By.xpath("//div[@id='content']/form/span[1]/input"));
   }
 
-  public int getGroupCount() {
+  public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
