@@ -64,17 +64,11 @@ public class ContactInfoTests extends TestBase {
 
   private String mergeEmails(ContactData contact) {
     return Arrays.asList(contact.getEmail(), contact.getEmail_2(), contact.getEmail_3())
-            .stream().filter((s) -> ! s.equals(""))
-            .map(ContactInfoTests::cleanedEmails)
-            .collect(Collectors.joining("\n"));
+            .stream().filter((s) -> ! s.equals("")).collect(Collectors.joining("\n"));
   }
 
 
   public static String cleanedPhones(String phone) {
-    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
-  }
-
-  public static String cleanedEmails(String phone) {
     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
 
