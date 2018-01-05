@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
   private String firstname;
   private String lastname;
@@ -14,7 +16,7 @@ public class ContactData {
   private String allEmails;
   private String email_2;
   private String email_3;
-
+  private File photo;
   private int id = Integer.MAX_VALUE;
   private String group;
 
@@ -94,6 +96,11 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
+
   public String getFirstname() {
     return firstname;
   }
@@ -133,6 +140,7 @@ public class ContactData {
   public String getAllPhones() {
     return allPhones;
   }
+
   public String getMobilePhone() {
     return mobilePhone;
   }
@@ -140,6 +148,7 @@ public class ContactData {
   public String getWorkPhone() {
     return workPhone;
   }
+
   public String getAllEmails() {
     return allEmails;
   }
@@ -150,6 +159,10 @@ public class ContactData {
 
   public String getEmail_3() {
     return email_3;
+  }
+
+  public File getPhoto() {
+    return photo;
   }
 
 
@@ -163,8 +176,6 @@ public class ContactData {
     if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
     if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-    if (homePhone != null ? !homePhone.equals(that.homePhone) : that.homePhone != null) return false;
-    if (email != null ? !email.equals(that.email) : that.email != null) return false;
     return address != null ? address.equals(that.address) : that.address == null;
   }
 
@@ -172,8 +183,6 @@ public class ContactData {
   public int hashCode() {
     int result = firstname != null ? firstname.hashCode() : 0;
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-    result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
-    result = 31 * result + (email != null ? email.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
     result = 31 * result + id;
     return result;
@@ -188,7 +197,6 @@ public class ContactData {
             ", email='" + email + '\'' +
             ", address='" + address + '\'' +
             ", mobilePhone='" + mobilePhone + '\'' +
-
             ", homepage='" + homepage + '\'' +
             ", note='" + note + '\'' +
             ", id=" + id +
