@@ -15,10 +15,10 @@ import java.util.List;
 
 public class ContactDataGenerator {
 
-  @Parameter (names = "-c", description = "Group count")
+  @Parameter(names = "-c", description = "Group count")
   public int count;
 
-  @Parameter (names = "-f", description = "Target file")
+  @Parameter(names = "-f", description = "Target file")
   public String file;
 
   @Parameter(names = "-d", description = "Data format")
@@ -40,8 +40,9 @@ public class ContactDataGenerator {
     List<ContactData> contacts = generateContacts(count);
 
     if (format.equals("csv")) {
-      saveAsCsv(contacts, new File(file));;
-    } else  if (format.equals("xml")) {
+      saveAsCsv(contacts, new File(file));
+      ;
+    } else if (format.equals("xml")) {
       saveAsXml(contacts, new File(file));
     } else {
       System.out.println("Unrecognized format " + format);
@@ -52,22 +53,20 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(groups);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(xml);
+    }
   }
 
 
   private static void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
-    Writer writer = new FileWriter(file);
-    for (ContactData contact : contacts) {
-      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s\n",
-//             %s
-              contact.getFirstname(), contact.getLastname(), contact.getAddress(), contact.getHomePhone(),
-              contact.getEmail(), contact.getHomepage(), contact.getGroup()));
-//              contact.getPhoto()));
+    try (Writer writer = new FileWriter(file)) {
+      for (ContactData contact : contacts) {
+        writer.write(String.format("%s;%s;%s;%s;%s;%s;%s\n",
+                contact.getFirstname(), contact.getLastname(), contact.getAddress(), contact.getHomePhone(),
+                contact.getEmail(), contact.getHomepage(), contact.getGroup()));
+      }
     }
-    writer.close();
   }
 
   private static List<ContactData> generateContacts(int count) {
