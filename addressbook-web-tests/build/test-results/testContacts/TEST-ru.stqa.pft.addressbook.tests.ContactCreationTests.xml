@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.ContactCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2018-01-06T16:13:14" hostname="user-pc" time="26.553">
+  <properties/>
+  <testcase name="testContactCreation[0](ContactData{firstname='firstname 0', lastname='lastname 0', homePhone='123 0', email='11@11.11 0', address='address 0', mobilePhone='null', homepage='111homepage 0.com', note='null', id=0, group='test1'})" classname="ru.stqa.pft.addressbook.tests.ContactCreationTests" time="8.21"/>
+  <testcase name="testContactCreation[1](ContactData{firstname='firstname 1', lastname='lastname 1', homePhone='123 1', email='11@11.11 1', address='address 1', mobilePhone='null', homepage='111homepage 1.com', note='null', id=0, group='test1'})" classname="ru.stqa.pft.addressbook.tests.ContactCreationTests" time="9.053"/>
+  <testcase name="testContactCreation[2](ContactData{firstname='firstname 2', lastname='lastname 2', homePhone='123 2', email='11@11.11 2', address='address 2', mobilePhone='null', homepage='111homepage 2.com', note='null', id=0, group='test1'})" classname="ru.stqa.pft.addressbook.tests.ContactCreationTests" time="9.29"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
