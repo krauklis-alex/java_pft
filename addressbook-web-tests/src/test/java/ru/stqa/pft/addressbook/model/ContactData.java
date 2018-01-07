@@ -2,34 +2,73 @@ package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("contact")
 @Entity
 @Table (name = "addressbook")
 public class ContactData {
-  private String firstname;
-  private String lastname;
-  private String homePhone;
-  private String email;
-  private String address;
-  private String mobilePhone;
-  private String workPhone;
-  private String homepage;
-  private String note;
-  private String allPhones;
-  private String allEmails;
-  private String email_2;
-  private String email_3;
-  private File photo;
   @XStreamOmitField
   @Id
-
+  @Column(name = "id")
   private int id = Integer.MAX_VALUE;
+
+  @Column(name = "firstname")
+  private String firstname;
+
+  @Column(name = "lastname")
+  private String lastname;
+
+  @Column(name = "home")
+  @Type(type = "text")
+  private String homePhone;
+
+  @Column(name = "mobile")
+  @Type(type = "text")
+  private String mobilePhone;
+
+  @Column(name = "work")
+  @Type(type = "text")
+  private String workPhone;
+
+  @Column(name = "email")
+  @Type(type = "text")
+  private String email;
+
+  @Column(name = "email2")
+  @Type(type = "text")
+  private String email_2;
+
+  @Column(name = "email3")
+  @Type(type = "text")
+  private String email_3;
+
+  @Column(name = "address")
+  @Type(type = "text")
+  private String address;
+
+  @Column(name = "homepage")
+  @Type(type = "text")
+  private String homepage;
+
+  @Column(name = "notes")
+  @Type(type = "text")
+  private String note;
+
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
+
+  @Transient
+  private String allPhones;
+
+  @Transient
+  private String allEmails;
+
+  @Transient
   private String group;
 
 
@@ -109,7 +148,7 @@ public class ContactData {
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -174,7 +213,7 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
 
@@ -203,16 +242,9 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "firstname='" + firstname + '\'' +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
-            ", homePhone='" + homePhone + '\'' +
-            ", email='" + email + '\'' +
-            ", address='" + address + '\'' +
-            ", mobilePhone='" + mobilePhone + '\'' +
-            ", homepage='" + homepage + '\'' +
-            ", note='" + note + '\'' +
-            ", id=" + id +
-            ", group='" + group + '\'' +
             '}';
   }
 
