@@ -14,7 +14,7 @@ public class ContactInfoTests extends TestBase {
 
   @BeforeMethod
   public void ensurePrecondions() {
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
       ContactData contact = new ContactData()
               .withFirstname("first-name-test").withLastname("last-name-test").withGroup("test1")
               .withAddress("NewYork Central park").withHomepage("homepage.com")

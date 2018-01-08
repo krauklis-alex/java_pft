@@ -41,7 +41,6 @@ public class ContactDataGenerator {
 
     if (format.equals("csv")) {
       saveAsCsv(contacts, new File(file));
-      ;
     } else if (format.equals("xml")) {
       saveAsXml(contacts, new File(file));
     } else {
@@ -50,6 +49,7 @@ public class ContactDataGenerator {
   }
 
   private void saveAsXml(List<ContactData> groups, File file) throws IOException {
+    System.out.println(new File(".").getAbsolutePath());
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(groups);
@@ -62,9 +62,9 @@ public class ContactDataGenerator {
   private static void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
     try (Writer writer = new FileWriter(file)) {
       for (ContactData contact : contacts) {
-        writer.write(String.format("%s;%s;%s;%s;%s;%s;%s\n",
+        writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
                 contact.getFirstname(), contact.getLastname(), contact.getAddress(), contact.getHomePhone(),
-                contact.getEmail(), contact.getHomepage(), contact.getGroup()));
+                contact.getEmail(), contact.getHomepage(), contact.getNote(), contact.getGroup()));
       }
     }
   }
@@ -75,9 +75,12 @@ public class ContactDataGenerator {
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstname(String.format("firstname %s", i))
               .withLastname(String.format("lastname %s", i)).withAddress(String.format("address %s", i))
-              .withHomePhone(String.format("123 %s", i)).withEmail(String.format("11@11.11 %s", i))
-              .withHomepage(String.format("111homepage %s.com", i)).withGroup(String.format("test1")));
-//              .withPhoto(String.format(photo));
+              .withHomePhone(String.format("123 %s", i)).withMobilePhone(String.format("345 %s", i))
+              .withWorkPhone(String.format("678 %s", i))
+              .withEmail(String.format("11@11.11 %s", i)).withEmail_2(String.format("11@11.11 %s", i))
+              .withEmail_3(String.format("33@33.33 %s", i))
+              .withHomepage(String.format("111homepage %s.com", i)).withNote(String.format("note %s", i))
+              .withGroup(String.format("test1")).withPhoto(new File(String.valueOf(photo))));
     }
     return contacts;
   }

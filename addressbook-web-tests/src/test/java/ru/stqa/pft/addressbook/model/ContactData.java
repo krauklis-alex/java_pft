@@ -137,8 +137,11 @@ public class ContactData {
     return this;
   }
 
+
+
   public ContactData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
+
     return this;
   }
 
@@ -216,7 +219,6 @@ public class ContactData {
     return new File(photo);
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -227,15 +229,31 @@ public class ContactData {
     if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
     if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-    return address != null ? address.equals(that.address) : that.address == null;
+    if (homePhone != null ? !homePhone.equals(that.homePhone) : that.homePhone != null) return false;
+    if (mobilePhone != null ? !mobilePhone.equals(that.mobilePhone) : that.mobilePhone != null) return false;
+    if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
+    if (email != null ? !email.equals(that.email) : that.email != null) return false;
+    if (email_2 != null ? !email_2.equals(that.email_2) : that.email_2 != null) return false;
+    if (email_3 != null ? !email_3.equals(that.email_3) : that.email_3 != null) return false;
+    if (address != null ? !address.equals(that.address) : that.address != null) return false;
+    if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
+    return note != null ? note.equals(that.note) : that.note == null;
   }
 
   @Override
   public int hashCode() {
-    int result = firstname != null ? firstname.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
+    result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
+    result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
+    result = 31 * result + (email != null ? email.hashCode() : 0);
+    result = 31 * result + (email_2 != null ? email_2.hashCode() : 0);
+    result = 31 * result + (email_3 != null ? email_3.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + id;
+    result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
+    result = 31 * result + (note != null ? note.hashCode() : 0);
     return result;
   }
 
@@ -245,6 +263,15 @@ public class ContactData {
             "id=" + id +
             ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", email='" + email + '\'' +
+            ", email_2='" + email_2 + '\'' +
+            ", email_3='" + email_3 + '\'' +
+            ", address='" + address + '\'' +
+            ", homepage='" + homepage + '\'' +
+            ", group='" + group + '\'' +
             '}';
   }
 

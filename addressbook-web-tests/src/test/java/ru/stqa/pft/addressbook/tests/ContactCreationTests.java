@@ -19,7 +19,7 @@ public class ContactCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContactsFromXml() throws IOException {
-//    File photo = new File("src/test/resources/kim.jpg");
+   File photo = new File("src/test/resources/kim.jpg");
    try (BufferedReader reader = new BufferedReader
            (new FileReader(new File("src/test/resources/contacts.xml")))) {
      String xml = "";
@@ -38,11 +38,11 @@ public class ContactCreationTests extends TestBase {
 
   @Test (dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     app.contact().create(contact, true);
     app.goTo().returnToHomePage();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
@@ -50,14 +50,14 @@ public class ContactCreationTests extends TestBase {
 
   @Test (enabled = false)
   public void testBadContactCreation() {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData contact = new ContactData().
             withFirstname("f'").withLastname("last-name-test").withHomePhone("2222222").
             withEmail("test@test.te").withAddress("NewYork Central park").withHomepage("homepage.com").withGroup("test1");
     app.contact().create(contact, true);
     app.goTo().returnToHomePage();
     assertThat(app.contact().count(), equalTo(before.size()));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before));
   }
 
