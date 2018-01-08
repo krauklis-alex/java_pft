@@ -19,7 +19,7 @@ public class ContactInfoTests extends TestBase {
               .withFirstname("first-name-test").withLastname("last-name-test").withGroup("test1")
               .withAddress("NewYork Central park").withHomepage("homepage.com")
               .withHomePhone("2222222").withMobilePhone("333333").withWorkPhone("4444")
-              .withEmail("test@test.te").withEmail_2("test111@te.te").withEmail_3("test111@te.te");
+              .withEmail("test@test.te").withEmail2("test111@te.te").withEmail3("test111@te.te");
       app.contact().create(contact, true);
       app.goTo().returnToHomePage();
     }
@@ -63,7 +63,7 @@ public class ContactInfoTests extends TestBase {
 
 
   private String mergeEmails(ContactData contact) {
-    return Arrays.asList(contact.getEmail(), contact.getEmail_2(), contact.getEmail_3())
+    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
             .stream().filter((s) -> ! s.equals("")).collect(Collectors.joining("\n"));
   }
 

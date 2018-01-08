@@ -40,11 +40,11 @@ public class ContactData {
 
   @Column(name = "email2")
   @Type(type = "text")
-  private String email_2;
+  private String email2;
 
   @Column(name = "email3")
   @Type(type = "text")
-  private String email_3;
+  private String email3;
 
   @Column(name = "address")
   @Type(type = "text")
@@ -92,13 +92,13 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withEmail_2(String email_2) {
-    this.email_2 = email_2;
+  public ContactData withEmail2(String email2) {
+    this.email2 = email2;
     return this;
   }
 
-  public ContactData withEmail_3(String email_3) {
-    this.email_3 = email_3;
+  public ContactData withEmail3(String email3) {
+    this.email3 = email3;
     return this;
   }
 
@@ -136,7 +136,6 @@ public class ContactData {
     this.allPhones = allPhones;
     return this;
   }
-
 
 
   public ContactData withAllEmails(String allEmails) {
@@ -207,12 +206,12 @@ public class ContactData {
     return allEmails;
   }
 
-  public String getEmail_2() {
-    return email_2;
+  public String getEmail2() {
+    return email2;
   }
 
-  public String getEmail_3() {
-    return email_3;
+  public String getEmail3() {
+    return email3;
   }
 
   public File getPhoto() {
@@ -233,8 +232,8 @@ public class ContactData {
     if (mobilePhone != null ? !mobilePhone.equals(that.mobilePhone) : that.mobilePhone != null) return false;
     if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
     if (email != null ? !email.equals(that.email) : that.email != null) return false;
-    if (email_2 != null ? !email_2.equals(that.email_2) : that.email_2 != null) return false;
-    if (email_3 != null ? !email_3.equals(that.email_3) : that.email_3 != null) return false;
+    if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
+    if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
     if (address != null ? !address.equals(that.address) : that.address != null) return false;
     if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
     return note != null ? note.equals(that.note) : that.note == null;
@@ -249,8 +248,8 @@ public class ContactData {
     result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
     result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
     result = 31 * result + (email != null ? email.hashCode() : 0);
-    result = 31 * result + (email_2 != null ? email_2.hashCode() : 0);
-    result = 31 * result + (email_3 != null ? email_3.hashCode() : 0);
+    result = 31 * result + (email2 != null ? email2.hashCode() : 0);
+    result = 31 * result + (email3 != null ? email3.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
     result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
     result = 31 * result + (note != null ? note.hashCode() : 0);
@@ -267,8 +266,8 @@ public class ContactData {
             ", mobilePhone='" + mobilePhone + '\'' +
             ", workPhone='" + workPhone + '\'' +
             ", email='" + email + '\'' +
-            ", email_2='" + email_2 + '\'' +
-            ", email_3='" + email_3 + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
             ", address='" + address + '\'' +
             ", homepage='" + homepage + '\'' +
             ", group='" + group + '\'' +

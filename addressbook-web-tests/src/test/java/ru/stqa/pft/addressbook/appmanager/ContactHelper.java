@@ -30,6 +30,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("home"), contactData.getHomePhone());
     type(By.name("mobile"), contactData.getMobilePhone());
     type(By.name("email"), contactData.getEmail());
+    type(By.name("email2"), contactData.getEmail2());
+    type(By.name("email3"), contactData.getEmail3());
     type(By.name("homepage"), contactData.getHomepage());
     type(By.name("notes"), contactData.getNote());
     type(By.name("work"),contactData.getWorkPhone());
@@ -133,7 +135,7 @@ public class ContactHelper extends HelperBase {
     return new ContactData()
             .withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withAddress(address)
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
-            .withEmail(email).withEmail_2(email2).withEmail_3(email3);
+            .withEmail(email).withEmail2(email2).withEmail3(email3);
   }
 }
 
