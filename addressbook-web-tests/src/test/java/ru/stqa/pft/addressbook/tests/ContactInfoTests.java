@@ -16,7 +16,7 @@ public class ContactInfoTests extends TestBase {
   public void ensurePrecondions() {
     if (app.db().contacts().size() == 0) {
       ContactData contact = new ContactData()
-              .withFirstname("first-name-test").withLastname("last-name-test").withGroup("test1")
+              .withFirstname("first-name-test").withLastname("last-name-test")
               .withAddress("NewYork Central park").withHomepage("homepage.com")
               .withHomePhone("2222222").withMobilePhone("333333").withWorkPhone("4444")
               .withEmail("test@test.te").withEmail2("test111@te.te").withEmail3("test111@te.te");
