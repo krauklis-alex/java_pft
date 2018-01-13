@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactModificationTests extends TestBase {
 
   @BeforeMethod
-  public void ensurePrecondions() {
+  public void ensurePreconditions() {
     if (app.db().contacts().size() == 0) {
       ContactData contact = new ContactData().
               withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222").
