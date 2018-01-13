@@ -39,6 +39,10 @@ public class GroupHelper extends HelperBase {
     wd.findElement(By.cssSelector("input[value ='" + id + "']")).click();
   }
 
+  public void selectGroupByIdForAddingContact(int id) {
+    wd.findElement(By.cssSelector("select[name='to_group']>option[value ='" +id + "']")).click();
+  }
+
   public void initGroupModification() {
     click(By.name("edit"));
   }
