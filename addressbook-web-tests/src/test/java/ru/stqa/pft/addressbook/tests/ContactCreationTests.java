@@ -1,10 +1,13 @@
 package ru.stqa.pft.addressbook.tests;
 
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -35,6 +38,13 @@ public class ContactCreationTests extends TestBase {
    }
   }
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
+  }
 
   @Test (dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) {
@@ -51,10 +61,13 @@ public class ContactCreationTests extends TestBase {
 
   @Test (enabled = false)
   public void testBadContactCreation() {
+    Groups groups = app.db().groups();
     Contacts before = app.db().contacts();
+    File photo = new File("src/test/resources/kim.jpg");
     ContactData contact = new ContactData().
             withFirstname("f'").withLastname("last-name-test").withHomePhone("2222222").
-            withEmail("test@test.te").withAddress("NewYork Central park").withHomepage("homepage.com");
+            withEmail("test@test.te").withAddress("NewYork Central park").withHomepage("homepage.com").withPhoto(photo)
+            .inGroup(groups.iterator().next());
     app.contact().create(contact, true);
     app.goTo().returnToHomePage();
     assertThat(app.contact().count(), equalTo(before.size()));
