@@ -14,14 +14,23 @@ import java.util.List;
 
 public class DbHelper {
 
-  private final SessionFactory sessionFactory;
+  private SessionFactory sessionFactory;
 
   public DbHelper() {
     // A SessionFactory is set up once for an application!
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure() // configures settings from hibernate.cfg.xml
             .build();
-      sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+    //sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+
+    try {
+      sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+    } catch (Exception e) {
+      e.printStackTrace();
+      // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
+      // so destroy it manually.
+      StandardServiceRegistryBuilder.destroy(registry);
+    }
   }
   public Groups groups() {
     Session session = sessionFactory.openSession();
