@@ -69,6 +69,11 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
+// тут переписать на что-то полезное!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// public void selectContactsWithoutGroups() {
+//    wd.findElement(By.xpath("//select[@name='group']/option[@value='[none]']")).click();
+//  }
+
   private void addContactToGroup() {
     click(By.cssSelector("input[name='add']"));
   }
@@ -97,6 +102,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void addToGroup(ContactData contact, GroupData group) {
+
     selectContactById(contact.getId());
     app.group().selectGroupByIdForAddingContact(group.getId());
     addContactToGroup();

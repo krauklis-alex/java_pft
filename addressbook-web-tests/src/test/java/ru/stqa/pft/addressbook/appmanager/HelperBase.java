@@ -55,6 +55,5 @@ public class HelperBase {
     } catch (NoSuchElementException ex) {
       return false;
     }
-
   }
 }
