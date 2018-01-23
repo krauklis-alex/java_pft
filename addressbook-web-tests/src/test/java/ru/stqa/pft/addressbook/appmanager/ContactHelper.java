@@ -101,8 +101,9 @@ public class ContactHelper extends HelperBase {
     app.goTo().homePage();
   }
 
-  public void addToGroup(ContactData contact, GroupData group) {
 
+// тут переписать или удалить!!!!!!!!!!!!!!!!!!!!1
+  public void addToGroup(ContactData contact, GroupData group) {
     selectContactById(contact.getId());
     app.group().selectGroupByIdForAddingContact(group.getId());
     addContactToGroup();

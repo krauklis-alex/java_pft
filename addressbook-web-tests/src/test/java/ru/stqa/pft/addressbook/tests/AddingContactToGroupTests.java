@@ -37,18 +37,45 @@ public class AddingContactToGroupTests extends TestBase {
 
   @Test
   public void testAddingContactToGroup() {
-    Contacts contacts = app.db().contacts();
-    Iterator<ContactData> iterator = contacts.iterator();
 
-    ContactData contact = iterator.next();
+    Contacts contacts = app.db().contacts();
+    Iterator<ContactData> iteratorContact = contacts.iterator();
+
+    ContactData contact = iteratorContact.next();
     Groups avalGroups = app.db().groups();
     avalGroups.removeAll(contact.getGroups());
 
-    while (iterator.hasNext() && avalGroups.size() == 0) {
-      contact = iterator.next();
+    while (iteratorContact.hasNext() && avalGroups.size() == 0) {
+      avalGroups = app.db().groups();
+      contact = iteratorContact.next();
       avalGroups.removeAll(contact.getGroups());
     }
 
-    Groups allGroups = app.db().groups();  //посчитать после цикла для сравнения в проверке
+    if (avalGroups.size() == 0) {
+      contact = new ContactData().withFirstname("first name");
+      app.contact().create(contact, true);
+      app.goTo().returnToHomePage();
+      avalGroups = app.db().groups();
+      contacts = app.db().contacts();
+      int id = contacts.stream().mapToInt(c -> c.getId()).max().getAsInt();
+      contact.withId(id);
+    }
+
+    Groups before = contact.getGroups();
+    GroupData group = avalGroups.iterator().next();
+    app.contact().addToGroup(contact, group);
+
+    contacts = app.db().contacts();
+    int id = contact.getId();
+    Iterator<ContactData> iteratorContactAfter = contacts.iterator();
+    while(iteratorContactAfter.hasNext()) {
+      contact = iteratorContactAfter.next();
+      if(contact.getId() == id) {
+        break;
+      }
+    }
+
+    Groups after = contact.getGroups();
+    assertThat(after, equalTo(before.withAdded(group)));
   }
 }
