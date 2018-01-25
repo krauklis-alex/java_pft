@@ -9,6 +9,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static ru.stqa.pft.addressbook.tests.TestBase.app;
@@ -69,14 +70,11 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-// тут переписать на что-то полезное!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// public void selectContactsWithoutGroups() {
-//    wd.findElement(By.xpath("//select[@name='group']/option[@value='[none]']")).click();
-//  }
-
-  private void addContactToGroup() {
-    click(By.cssSelector("input[name='add']"));
+  public void selectContactsInGroups(int id) {
+    wd.findElement(By.xpath("//select[@name='group']/option[@value='" + id + "']")).click();
   }
+
+
 
   public void create(ContactData contact, boolean creation) {
     initContactCreation();
@@ -102,11 +100,38 @@ public class ContactHelper extends HelperBase {
   }
 
 
-// тут переписать или удалить!!!!!!!!!!!!!!!!!!!!1
   public void addToGroup(ContactData contact, GroupData group) {
     selectContactById(contact.getId());
-    app.group().selectGroupByIdForAddingContact(group.getId());
+    app.group().selectGroupByIdOnContactsPage(group.getId());
     addContactToGroup();
+  }
+
+  private void addContactToGroup() {
+    click(By.cssSelector("input[name='add']"));
+  }
+
+  public void deleteFromGroup(ContactData contact, GroupData group) {
+    selectContactsInGroups(group.getId());
+    selectContactById(contact.getId());
+    deleteContactFromGroup();
+  }
+
+  private void deleteContactFromGroup() {
+    click(By.cssSelector("input[name='remove']"));
+  }
+
+  public ContactData refresh(ContactData contact) {
+    Contacts contacts;
+    contacts = app.db().contacts();
+    int id = contact.getId();
+    Iterator<ContactData> iteratorContactAfter = contacts.iterator();
+    while(iteratorContactAfter.hasNext()) {
+      contact = iteratorContactAfter.next();
+      if(contact.getId() == id) {
+        break;
+      }
+    }
+    return contact;
   }
 
   public boolean isThereAContact() {

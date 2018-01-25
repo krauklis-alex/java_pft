@@ -15,6 +15,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -68,4 +69,4 @@ public class TestBase {
               .collect(Collectors.toSet())));
     }
   }
-  }
+}

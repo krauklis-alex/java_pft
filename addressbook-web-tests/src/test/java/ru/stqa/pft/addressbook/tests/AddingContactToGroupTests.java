@@ -37,9 +37,9 @@ public class AddingContactToGroupTests extends TestBase {
   @Test
   public void testAddingContactToGroup() {
 
+//    chooseContact();
     Contacts contacts = app.db().contacts();
     Iterator<ContactData> iteratorContact = contacts.iterator();
-
     ContactData contact = iteratorContact.next();
     Groups avalGroups = app.db().groups();
     avalGroups.removeAll(contact.getGroups());
@@ -54,26 +54,24 @@ public class AddingContactToGroupTests extends TestBase {
       contact = new ContactData().withFirstname("first name");
       app.contact().create(contact, true);
       app.goTo().returnToHomePage();
-      avalGroups = app.db().groups();
       contacts = app.db().contacts();
       int id = contacts.stream().mapToInt(c -> c.getId()).max().getAsInt();
       contact.withId(id);
+      avalGroups = app.db().groups();
     }
 
+//  оставить как есть
     Groups before = contact.getGroups();
+
+//    chooseGroup()
     GroupData group = avalGroups.iterator().next();
+
     app.contact().addToGroup(contact, group);
 
-    contacts = app.db().contacts();
-    int id = contact.getId();
-    Iterator<ContactData> iteratorContactAfter = contacts.iterator();
-    while(iteratorContactAfter.hasNext()) {
-      contact = iteratorContactAfter.next();
-      if(contact.getId() == id) {
-        break;
-      }
-    }
+//    refresh
+    contact = app.contact().refresh(contact);
 
+//      оставить как есть
     Groups after = contact.getGroups();
     assertThat(after, equalTo(before.withAdded(group)));
   }
