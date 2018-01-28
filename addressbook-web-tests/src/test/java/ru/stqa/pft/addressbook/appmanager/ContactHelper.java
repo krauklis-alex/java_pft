@@ -11,6 +11,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.stqa.pft.addressbook.tests.TestBase.app;
 
@@ -75,7 +76,6 @@ public class ContactHelper extends HelperBase {
   }
 
 
-
   public void create(ContactData contact, boolean creation) {
     initContactCreation();
     fillContactForm(contact, creation);
@@ -104,13 +104,17 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     app.group().selectGroupByIdOnContactsPage(group.getId());
     addContactToGroup();
-    contact.inGroup(group);
-//    refreshContact();
   }
 
-//  private void refreshContact() {
-//    Contacts contact
-//  }
+  public ContactData refreshContact(int id) {
+    Contacts contacts = app.db().contacts();
+    for (ContactData contact : contacts) {
+      if (contact.getId() == id) {
+        return contact;
+      }
+    }
+    return null;
+  }
 
   private void addContactToGroup() {
     click(By.cssSelector("input[name='add']"));
@@ -120,6 +124,7 @@ public class ContactHelper extends HelperBase {
     selectContactsInGroups(group.getId());
     selectContactById(contact.getId());
     deleteContactFromGroup();
+
   }
 
   private void deleteContactFromGroup() {
@@ -138,31 +143,6 @@ public class ContactHelper extends HelperBase {
     return null;
   }
 
-//
-//    Contacts contacts = app.db().contacts();
-//    int id = contact.getId();
-//    for (contact:contacts)
-//      if (contact.getId() == id) {
-//        return contact;
-//      }
-//      return null;
-//    }
-//  }
-/*
-    Contacts contacts;
-    contacts = app.db().contacts();
-    int id = contact.getId();
-    Iterator<ContactData> iteratorContactAfter = contacts.iterator();
-    while(iteratorContactAfter.hasNext()) {
-      contact = iteratorContactAfter.next();
-      if(contact.getId() == id) {
-        break;
-      }
-    }
-    return contact;
-  }
-*/
-
   public ContactData findContactWithNotFullGroups() {
     Contacts contacts = app.db().contacts();
     Groups allGroups = app.db().groups();
@@ -174,19 +154,17 @@ public class ContactHelper extends HelperBase {
     return null;
   }
 
-  public ContactData createNewContact() {
-    ContactData contact = new ContactData().
-            withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222");
+  public ContactData createNewContact(ContactData contact) {
     create(contact, true);
     app.goTo().returnToHomePage();
     contact = refreshAfterCreation();
     return contact;
   }
 
-  public Groups findGroupsForContacts(ContactData contact){
+  public Groups findGroupsForContact(ContactData contact) {
     Groups appropriateGroupsForContact = new Groups();
-    for(GroupData group : app.db().groups()){
-      if(!contact.getGroups().contains(group)){
+    for (GroupData group : app.db().groups()) {
+      if (!contact.getGroups().contains(group)) {
         appropriateGroupsForContact.add(group);
       }
     }
@@ -243,6 +221,25 @@ public class ContactHelper extends HelperBase {
             .withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withAddress(address)
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
             .withEmail(email).withEmail2(email2).withEmail3(email3);
+  }
+
+  public Contacts findAllContactsWithGroups() {
+    Contacts contacts = app.db().contacts();
+    Contacts contactsWithGroups = contacts.stream().filter(c -> c.getGroups().size() > 0)
+            .collect(Collectors.toCollection(Contacts::new));
+    return contactsWithGroups;
+  }
+
+  public ContactData findContactWithGroups() {
+    Contacts contactsWithGroups = app.contact().findAllContactsWithGroups();
+    if (contactsWithGroups.size() == 0) {
+      ContactData contact = app.contact().createNewContact(new ContactData()
+              .withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222")
+              .inGroup(app.db().groups().iterator().next()));
+      contactsWithGroups.add(contact);
+    }
+    ContactData contact = contactsWithGroups.iterator().next();
+    return contact;
   }
 }
 

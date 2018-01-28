@@ -12,6 +12,8 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 
+import static ru.stqa.pft.addressbook.tests.TestBase.app;
+
 public class DbHelper {
 
   private SessionFactory sessionFactory;
@@ -49,6 +51,5 @@ public class DbHelper {
     session.close();
     return new Contacts(result);
   }
-
 
 }
