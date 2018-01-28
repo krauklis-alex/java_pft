@@ -8,8 +8,8 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.Iterator;
 import java.util.List;
 
 import static ru.stqa.pft.addressbook.tests.TestBase.app;
@@ -104,7 +104,13 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     app.group().selectGroupByIdOnContactsPage(group.getId());
     addContactToGroup();
+    contact.inGroup(group);
+//    refreshContact();
   }
+
+//  private void refreshContact() {
+//    Contacts contact
+//  }
 
   private void addContactToGroup() {
     click(By.cssSelector("input[name='add']"));
@@ -120,7 +126,29 @@ public class ContactHelper extends HelperBase {
     click(By.cssSelector("input[name='remove']"));
   }
 
-  public ContactData refresh(ContactData contact) {
+
+  public ContactData refreshAfterCreation() {
+    Contacts contacts = app.db().contacts();
+    int id = contacts.stream().mapToInt(c -> c.getId()).max().getAsInt();
+    for (ContactData contact : contacts) {
+      if (contact.getId() == id) {
+        return contact.withId(id);
+      }
+    }
+    return null;
+  }
+
+//
+//    Contacts contacts = app.db().contacts();
+//    int id = contact.getId();
+//    for (contact:contacts)
+//      if (contact.getId() == id) {
+//        return contact;
+//      }
+//      return null;
+//    }
+//  }
+/*
     Contacts contacts;
     contacts = app.db().contacts();
     int id = contact.getId();
@@ -133,6 +161,38 @@ public class ContactHelper extends HelperBase {
     }
     return contact;
   }
+*/
+
+  public ContactData findContactWithNotFullGroups() {
+    Contacts contacts = app.db().contacts();
+    Groups allGroups = app.db().groups();
+    for (ContactData contact : contacts) {
+      if (contact.getGroups().size() < allGroups.size()) {
+        return contact;
+      }
+    }
+    return null;
+  }
+
+  public ContactData createNewContact() {
+    ContactData contact = new ContactData().
+            withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222");
+    create(contact, true);
+    app.goTo().returnToHomePage();
+    contact = refreshAfterCreation();
+    return contact;
+  }
+
+  public Groups findGroupsForContacts(ContactData contact){
+    Groups appropriateGroupsForContact = new Groups();
+    for(GroupData group : app.db().groups()){
+      if(!contact.getGroups().contains(group)){
+        appropriateGroupsForContact.add(group);
+      }
+    }
+    return appropriateGroupsForContact;
+  }
+
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
