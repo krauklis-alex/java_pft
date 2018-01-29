@@ -22,21 +22,25 @@ public class AddingContactToGroupTests extends TestBase {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
     }
+
+    ContactData contact = app.contact().findContactWithNotFullGroups();
+    if (contact == null) {
+      app.contact().createNewContact(new ContactData()
+              .withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222"));
+    }
+
+
   }
 
 
   @Test
   public void testAddingContactToGroup() {
     ContactData contact = app.contact().findContactWithNotFullGroups();
-    if (contact == null) {
-      contact = app.contact().createNewContact(new ContactData()
-              .withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222"));
-    }
     Groups groups = app.contact().findGroupsForContact(contact);
     Groups before = contact.getGroups();
     GroupData group = groups.iterator().next();
     app.contact().addToGroup(contact, group);
-    contact = app.contact().refreshContact(contact.getId());
+    contact = app.contact().refreshContact(contact);
     Groups after = contact.getGroups();
     assertThat(after, equalTo(before.withAdded(group)));
   }

@@ -106,14 +106,10 @@ public class ContactHelper extends HelperBase {
     addContactToGroup();
   }
 
-  public ContactData refreshContact(int id) {
-    Contacts contacts = app.db().contacts();
-    for (ContactData contact : contacts) {
-      if (contact.getId() == id) {
-        return contact;
-      }
-    }
-    return null;
+  public ContactData refreshContact(ContactData contact) {
+    ContactData currentContact = contact;
+    contact = app.db().contacts().stream().filter(c -> (c.getId() == currentContact.getId())).findFirst().get();
+    return contact;
   }
 
   private void addContactToGroup() {
@@ -135,12 +131,8 @@ public class ContactHelper extends HelperBase {
   public ContactData refreshAfterCreation() {
     Contacts contacts = app.db().contacts();
     int id = contacts.stream().mapToInt(c -> c.getId()).max().getAsInt();
-    for (ContactData contact : contacts) {
-      if (contact.getId() == id) {
-        return contact.withId(id);
-      }
-    }
-    return null;
+    ContactData contact = app.db().contacts().stream().filter(c -> (c.getId() == id)).findFirst().get();
+    return contact;
   }
 
   public ContactData findContactWithNotFullGroups() {
@@ -232,12 +224,6 @@ public class ContactHelper extends HelperBase {
 
   public ContactData findContactWithGroups() {
     Contacts contactsWithGroups = app.contact().findAllContactsWithGroups();
-    if (contactsWithGroups.size() == 0) {
-      ContactData contact = app.contact().createNewContact(new ContactData()
-              .withFirstname("first-name-test").withLastname("last-name-test").withHomePhone("2222222")
-              .inGroup(app.db().groups().iterator().next()));
-      contactsWithGroups.add(contact);
-    }
     ContactData contact = contactsWithGroups.iterator().next();
     return contact;
   }
