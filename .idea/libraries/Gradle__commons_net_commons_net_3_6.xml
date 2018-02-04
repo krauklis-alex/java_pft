@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Gradle: commons-net:commons-net:3.6">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/mantis-tests/Could not resolve commons-net:commons-net:3.6." />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-net/commons-net/3.6/b71de00508dcb078d2b24b5fa7e538636de9b3da/commons-net-3.6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
